@@ -4,7 +4,10 @@ FROM ghcr.io/openclaw/openclaw:2026.3.2
 # base 映像可能以 non-root 執行，先用 root 建立目錄並設權限
 USER root
 RUN mkdir -p /opt/openclaw-seed && chown -R 1000:1000 /opt/openclaw-seed
+# 安裝 InsForge CLI，讓助理可透過執行指令使用 npx @insforge/cli
+RUN npm install -g @insforge/cli
 COPY --chown=1000:1000 openclaw.json /opt/openclaw-seed/openclaw.json
+COPY --chown=1000:1000 workspace-seed /opt/openclaw-seed/workspace-seed
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 USER 1000

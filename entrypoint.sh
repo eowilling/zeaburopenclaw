@@ -9,6 +9,14 @@ if [ ! -f "$CONFIG_FILE" ] && [ -f "$SEED_FILE" ]; then
   cp "$SEED_FILE" "$CONFIG_FILE"
   chown 1000:1000 "$CONFIG_FILE" 2>/dev/null || true
 fi
+# 若 workspace 尚未有 MEMORY，從種子複製（含 InsForge 稱呼與 CLI 說明）
+WORKSPACE_SEED="/opt/openclaw-seed/workspace-seed"
+WORKSPACE_DIR="$CONFIG_DIR/workspace"
+if [ -d "$WORKSPACE_SEED" ] && [ ! -f "$WORKSPACE_DIR/MEMORY.md" ]; then
+  mkdir -p "$WORKSPACE_DIR"
+  cp -r "$WORKSPACE_SEED"/* "$WORKSPACE_DIR/"
+  chown -R 1000:1000 "$WORKSPACE_DIR" 2>/dev/null || true
+fi
 
 if [ $# -eq 0 ]; then
   exec openclaw gateway run
