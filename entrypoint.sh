@@ -1,0 +1,16 @@
+#!/bin/sh
+# 若 Volume 掛在 /home/node 且初次為空，把 repo 的 openclaw.json 種到磁碟上，之後 UI 改寫會持久化
+CONFIG_DIR="/home/node/.openclaw"
+CONFIG_FILE="$CONFIG_DIR/openclaw.json"
+SEED_FILE="/opt/openclaw-seed/openclaw.json"
+
+if [ ! -f "$CONFIG_FILE" ] && [ -f "$SEED_FILE" ]; then
+  mkdir -p "$CONFIG_DIR"
+  cp "$SEED_FILE" "$CONFIG_FILE"
+  chown 1000:1000 "$CONFIG_FILE" 2>/dev/null || true
+fi
+
+if [ $# -eq 0 ]; then
+  exec openclaw gateway run
+fi
+exec "$@"

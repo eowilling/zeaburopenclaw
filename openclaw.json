@@ -40,13 +40,14 @@
       }
     },
     "tools": {
-      "profile": "messaging"
+      "profile": "full"
     },
     "commands": {
       "native": "auto",
       "nativeSkills": "auto",
       "restart": true,
-      "ownerDisplay": "raw"
+      "ownerDisplay": "raw",
+      "config": true
     },
     "session": {
       "dmScope": "per-channel-peer"
@@ -114,6 +115,9 @@
           "provider": "default",
           "id": "OPENCLAW_GATEWAY_TOKEN"
         }
+      },
+      "reload": {
+        "mode": "hybrid"
       },
       "nodes": {
         "denyCommands": [
