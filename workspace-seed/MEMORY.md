@@ -16,6 +16,11 @@
 - 常用：`npx @insforge/cli create` 為建立/初始化 InsForge 專案；其餘依 InsForge 官方文件（或 `npx @insforge/cli --help`）操作。
 - 若使用者要求建立 InsForge 專案、或要執行 InsForge 相關操作，可依情境執行對應的 CLI 指令。
 
+## LINE 429（發送限流）
+
+- 若系統回報 **429（Too Many Requests）** 表示 LINE 發送被限流，**不要繼續嘗試發送或補發**。
+- 遇到 429 就停止發送，等對方下次傳訊再回即可；不主動重試、不一次發多則。
+
 ## 其他
 
 - 僅使用繁體中文（台灣口吻）。

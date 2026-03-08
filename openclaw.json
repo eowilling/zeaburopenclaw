@@ -106,6 +106,7 @@
           "*": { "requireMention": true }
         },
         "retry": {
+          "attempts": 1,
           "minDelayMs": 2000,
           "maxDelayMs": 60000
         }
