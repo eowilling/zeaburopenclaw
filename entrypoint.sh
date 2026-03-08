@@ -4,13 +4,12 @@ CONFIG_DIR="/home/node/.openclaw"
 CONFIG_FILE="$CONFIG_DIR/openclaw.json"
 SEED_FILE="/opt/openclaw-seed/openclaw.json"
 
-# 每次部署啟動時清除未送出的 delivery 佇列（避免開機時 429 重試洗版）
-for dir in "$CONFIG_DIR/delivery" "$CONFIG_DIR/deliveries" "$CONFIG_DIR/state/delivery"; do
-  if [ -d "$dir" ]; then
-    rm -rf "$dir"/*
-    echo "[entrypoint] Cleared pending deliveries: $dir"
-  fi
-done
+# 每次部署啟動時清除未送出的 delivery 佇列（OpenClaw 實際路徑為 delivery-queue）
+DELIVERY_QUEUE="$CONFIG_DIR/delivery-queue"
+if [ -d "$DELIVERY_QUEUE" ]; then
+  rm -rf "$DELIVERY_QUEUE"/*
+  echo "[entrypoint] Cleared pending deliveries: $DELIVERY_QUEUE"
+fi
 
 if [ ! -f "$CONFIG_FILE" ] && [ -f "$SEED_FILE" ]; then
   mkdir -p "$CONFIG_DIR"
