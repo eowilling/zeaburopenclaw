@@ -104,6 +104,10 @@
         "channelSecret": "c1aa210d9a2df7ecdece32b2fb0822c4",
         "groups": {
           "*": { "requireMention": true }
+        },
+        "retry": {
+          "minDelayMs": 2000,
+          "maxDelayMs": 60000
         }
       }
     },
