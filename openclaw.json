@@ -42,6 +42,17 @@
     "tools": {
       "profile": "full"
     },
+    "browser": {
+      "enabled": true,
+      "attachOnly": true,
+      "defaultProfile": "remote",
+      "profiles": {
+        "remote": {
+          "cdpUrl": "http://openclaw-sandbox-browser:9222",
+          "color": "#FF4500"
+        }
+      }
+    },
     "commands": {
       "native": "auto",
       "nativeSkills": "auto",
