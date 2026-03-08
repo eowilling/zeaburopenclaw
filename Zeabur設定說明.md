@@ -34,17 +34,18 @@
 
 ---
 
-## 三、環境變數（建議）
+## 三、環境變數（必填／建議）
 
 在 Zeabur 服務的「環境變數」中設定：
 
 | 變數名稱 | 說明 | 是否必填 |
 |----------|------|----------|
-| **OPENCLAW_GATEWAY_TOKEN** | 與 `openclaw.json` 裡 `gateway.auth.token` 相同，用於瀏覽器 UI 與程式連線 | 建議設，程式控制時會用到 |
+| **OPENCLAW_CONFIG_PATH** | 指定設定檔路徑，**必須**設為 `/home/node/.openclaw/openclaw.json`，Gateway 才會讀磁碟上的設定（含免裝置配對） | **必填** |
+| **OPENCLAW_GATEWAY_TOKEN** | 與 `openclaw.json` 裡 `gateway.auth.token` 相同，用於瀏覽器 UI 與程式連線 | 建議設 |
 | **GOOGLE_GENERATIVE_AI_API_KEY**（或你用的 Gemini 金鑰變數名） | Gemini API 金鑰，若 auth 用 env 注入 | 依你目前登入方式 |
 
-- UI 連線時在「設定」頁輸入的 **Gateway 令牌**，請與 `openclaw.json` 的 `gateway.auth.token` 一致；若你有設 `OPENCLAW_GATEWAY_TOKEN`，可把同一組 token 填進 UI。
-- 程式呼叫 Gateway 時，用同一組 token 做認證即可。
+- **為何必填 OPENCLAW_CONFIG_PATH**：Zeabur 的啟動腳本（`/opt/openclaw/start_gateway.sh`）若未指定，可能讀取映像內其他路徑的設定檔，就不會套用磁碟上的 `gateway.controlUi.dangerouslyDisableDeviceAuth`，會出現 `device identity required` 而無法連線。
+- UI 連線時在「設定」頁輸入的 **Gateway 令牌**，請與 `gateway.auth.token` 一致；程式呼叫 Gateway 時，用同一組 token 做認證即可。
 
 ---
 
@@ -111,3 +112,31 @@
 - [ ] 程式用同一 token 連 WebSocket，可成功呼叫 `config.get` / `config.set` 或 `config.patch`
 
 若以上都符合，即表示 Zeabur 上已正確設定，可順利使用 UI 設定與程式控制。
+
+---
+
+## 八、故障排除：`device identity required`（1008）
+
+若日誌出現 **`code=1008 reason=device identity required`**，代表 Gateway 讀到的設定裡沒有啟用「免裝置配對」。
+
+**請依序檢查：**
+
+1. **環境變數**  
+   在 Zeabur 服務裡新增：  
+   **`OPENCLAW_CONFIG_PATH`** = **`/home/node/.openclaw/openclaw.json`**  
+   儲存後**重新部署**，讓 Gateway 改為讀取磁碟上的設定。
+
+2. **磁碟上的設定內容**  
+   若之前曾部署過舊版或沒掛 Volume，磁碟上的 `openclaw.json` 可能是舊的（沒有 `gateway.controlUi.dangerouslyDisableDeviceAuth`）。  
+   - **方式 A**：在 Zeabur 的 **Files** 裡打開 `/home/node/.openclaw/openclaw.json`，確認有這一段（若沒有就補上）：
+     ```json
+     "controlUi": {
+       "dangerouslyAllowHostHeaderOriginFallback": true,
+       "allowInsecureAuth": true,
+       "dangerouslyDisableDeviceAuth": true
+     }
+     ```
+   - **方式 B**：刪除磁碟上的 `openclaw.json`（或整個 `/home/node/.openclaw` 後重啟服務），讓 entrypoint 重新從種子複製一份（內含上述設定）。
+
+3. **重啟**  
+   改完環境變數或設定檔後，務必**重新部署／重啟**服務，Gateway 才會載入新設定。

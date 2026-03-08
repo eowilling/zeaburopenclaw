@@ -52,6 +52,11 @@
     "session": {
       "dmScope": "per-channel-peer"
     },
+    "messages": {
+      "groupChat": {
+        "mentionPatterns": ["elior", "@?elior"]
+      }
+    },
     "hooks": {
       "internal": {
         "enabled": true,
@@ -77,11 +82,18 @@
         "dmPolicy": "pairing",
         "botToken": "8417257737:AAE0m4CnCdDYiTWD7U-I1depOt-3NQ-DjE4",
         "groupPolicy": "open",
-        "streaming": "partial"
+        "streaming": "partial",
+        "retry": {
+          "minDelayMs": 2000,
+          "maxDelayMs": 60000
+        }
       },
       "line": {
         "channelAccessToken": "BpoxfQfU0Q/3m2PX03daVblFckKxvgiKkJcsVx2UQNd/W92JdxsNZGbH5lxLlnDgt8BG7xtz37T1oBggkz8rmbmB/5ZUhwWChb/0PvFjXHkZv+GcL9mUNe+2iBh99aCTO82pHRX58XiAvJKDflXG2gdB04t89/1O/w1cDnyilFU=",
-        "channelSecret": "c1aa210d9a2df7ecdece32b2fb0822c4"
+        "channelSecret": "c1aa210d9a2df7ecdece32b2fb0822c4",
+        "groups": {
+          "*": { "requireMention": true }
+        }
       }
     },
     "gateway": {
@@ -102,6 +114,8 @@
         "172.16.0.0/12",
         "192.168.0.0/16",
         "100.64.0.0/10",
+        "104.16.0.0/12",
+        "173.245.48.0/20",
         "0.0.0.0/0"
       ],
       "tailscale": {
