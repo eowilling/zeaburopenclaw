@@ -1,0 +1,4 @@
+# Zeabur 抓回的完整備份（內含敏感資料：auth、sessions、tokens）
+.openclaw/
+openclaw-full-backup.tar.gz
+*.tar.gz

@@ -1,0 +1,5 @@
+# 建置時只帶 openclaw.json，其餘不打包
+*.md
+*.html
+.git
+.gitignore

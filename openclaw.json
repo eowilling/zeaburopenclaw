@@ -1,0 +1,138 @@
+{
+    "meta": {
+      "lastTouchedVersion": "2026.3.2",
+      "lastTouchedAt": "2026-03-08T05:33:18.246Z"
+    },
+    "wizard": {
+      "lastRunAt": "2026-03-08T05:33:18.153Z",
+      "lastRunVersion": "2026.3.2",
+      "lastRunCommand": "onboard",
+      "lastRunMode": "local"
+    },
+    "auth": {
+      "profiles": {
+        "google:default": {
+          "provider": "google",
+          "mode": "api_key"
+        }
+      }
+    },
+    "models": {
+      "providers": {
+      }
+    },
+    "agents": {
+      "defaults": {
+        "model": {
+          "primary": "google/gemini-2.5-flash",
+          "fallbacks": [
+            "google/gemini-2.5-flash-lite"
+          ]
+        },
+        "models": {
+          "google/gemini-2.5-flash-lite": {},
+          "google/gemini-2.5-flash": {}
+        },
+        "workspace": "/home/node/.openclaw/workspace",
+        "heartbeat": {
+          "target": "telegram"
+        }
+      }
+    },
+    "tools": {
+      "profile": "messaging"
+    },
+    "commands": {
+      "native": "auto",
+      "nativeSkills": "auto",
+      "restart": true,
+      "ownerDisplay": "raw"
+    },
+    "session": {
+      "dmScope": "per-channel-peer"
+    },
+    "hooks": {
+      "internal": {
+        "enabled": true,
+        "entries": {
+          "session-memory": {
+            "enabled": true
+          },
+          "command-logger": {
+            "enabled": true
+          },
+          "bootstrap-extra-files": {
+            "enabled": true
+          },
+          "boot-md": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    "channels": {
+      "telegram": {
+        "enabled": true,
+        "dmPolicy": "pairing",
+        "botToken": "8417257737:AAE0m4CnCdDYiTWD7U-I1depOt-3NQ-DjE4",
+        "groupPolicy": "open",
+        "streaming": "partial"
+      },
+      "line": {
+        "channelAccessToken": "BpoxfQfU0Q/3m2PX03daVblFckKxvgiKkJcsVx2UQNd/W92JdxsNZGbH5lxLlnDgt8BG7xtz37T1oBggkz8rmbmB/5ZUhwWChb/0PvFjXHkZv+GcL9mUNe+2iBh99aCTO82pHRX58XiAvJKDflXG2gdB04t89/1O/w1cDnyilFU=",
+        "channelSecret": "c1aa210d9a2df7ecdece32b2fb0822c4"
+      }
+    },
+    "gateway": {
+      "port": 18789,
+      "mode": "local",
+      "bind": "loopback",
+      "controlUi": {
+        "dangerouslyAllowHostHeaderOriginFallback": true,
+        "allowInsecureAuth": true,
+        "dangerouslyDisableDeviceAuth": true
+      },
+      "auth": {
+        "mode": "token",
+        "token": "d2es0O95q3khz4SbHJ18ilr6Wwx7LVYP"
+      },
+      "trustedProxies": [
+        "10.0.0.0/8",
+        "172.16.0.0/12"
+      ],
+      "tailscale": {
+        "mode": "off",
+        "resetOnExit": false
+      },
+      "remote": {
+        "url": "ws://127.0.0.1:18789",
+        "token": {
+          "source": "env",
+          "provider": "default",
+          "id": "OPENCLAW_GATEWAY_TOKEN"
+        }
+      },
+      "nodes": {
+        "denyCommands": [
+          "camera.snap",
+          "camera.clip",
+          "screen.record",
+          "contacts.add",
+          "calendar.add",
+          "reminders.add",
+          "sms.send"
+        ]
+      }
+    },
+    "plugins": {
+      "entries": {
+        "telegram": {
+          "enabled": true
+        },
+        "line": {
+          "enabled": true
+        }
+      }
+    }
+  }
+  

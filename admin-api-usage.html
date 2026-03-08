@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gemini API 使用量紀錄</title>
+  <style>
+    :root { --bg: #1a1b26; --card: #24283b; --text: #c0caf5; --accent: #7aa2f7; --muted: #565f89; }
+    * { box-sizing: border-box; }
+    body { font-family: "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 1.5rem; line-height: 1.6; }
+    h1 { font-size: 1.25rem; margin: 0 0 1rem; color: var(--accent); }
+    p { margin: 0 0 1rem; color: var(--muted); font-size: 0.9rem; }
+    table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 8px; overflow: hidden; }
+    th, td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid var(--bg); }
+    th { background: rgba(122,162,247,0.15); color: var(--accent); font-weight: 600; }
+    tr:last-child td { border-bottom: none; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    input, select { background: var(--bg); border: 1px solid var(--muted); color: var(--text); padding: 0.5rem; border-radius: 4px; width: 100%; }
+    input::placeholder { color: var(--muted); }
+    .note { font-size: 0.85rem; color: var(--muted); margin-top: 1.5rem; }
+    .btn { display: inline-block; background: var(--accent); color: var(--bg); border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; font-size: 0.9rem; margin-top: 0.5rem; }
+    .btn:hover { filter: brightness(1.1); }
+  </style>
+</head>
+<body>
+  <h1>🔑 五組 Gemini API Key 使用量紀錄</h1>
+  <p>OpenClaw 不會回報「哪一組 key 用了多少」。要查各 key 用量，請到<strong>對應的 Google 帳號</strong>的 AI Studio 查看。此頁僅供你紀錄「哪個 Key 對應哪個帳號」並快速開啟用量頁。</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>環境變數</th>
+        <th>對應 Google 帳號（自行填寫）</th>
+        <th>查看用量</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>GEMINI_API_KEY_1</code></td>
+        <td><input type="text" id="account1" placeholder="例：main@gmail.com" /></td>
+        <td><a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Google AI Studio → API Key / 用量</a></td>
+      </tr>
+      <tr>
+        <td><code>GEMINI_API_KEY_2</code></td>
+        <td><input type="text" id="account2" placeholder="例：bot2@gmail.com" /></td>
+        <td><a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Google AI Studio → API Key / 用量</a></td>
+      </tr>
+      <tr>
+        <td><code>GEMINI_API_KEY_3</code></td>
+        <td><input type="text" id="account3" placeholder="例：bot3@gmail.com" /></td>
+        <td><a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Google AI Studio → API Key / 用量</a></td>
+      </tr>
+      <tr>
+        <td><code>GEMINI_API_KEY_4</code></td>
+        <td><input type="text" id="account4" placeholder="例：bot4@gmail.com" /></td>
+        <td><a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Google AI Studio → API Key / 用量</a></td>
+      </tr>
+      <tr>
+        <td><code>GEMINI_API_KEY_5</code></td>
+        <td><input type="text" id="account5" placeholder="例：bot5@gmail.com" /></td>
+        <td><a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Google AI Studio → API Key / 用量</a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button class="btn" onclick="save()">儲存到本機</button>
+  <button class="btn" onclick="load()">載入本機紀錄</button>
+
+  <div class="note">
+    <strong>說明：</strong> 每次查看用量時，請用<strong>該列的 Google 帳號</strong>登入 AI Studio，才能看到該 key 的用量。用量與限額以 Google 官方為準（免費層約 15 RPM、1,000 RPD、250k TPM/分鐘）。本頁的「對應帳號」只存在你瀏覽器的 localStorage，不會上傳。
+  </div>
+
+  <script>
+    const KEY = 'openclaw-gemini-accounts';
+    function save() {
+      const data = {
+        account1: document.getElementById('account1').value,
+        account2: document.getElementById('account2').value,
+        account3: document.getElementById('account3').value,
+        account4: document.getElementById('account4').value,
+        account5: document.getElementById('account5').value
+      };
+      localStorage.setItem(KEY, JSON.stringify(data));
+      alert('已儲存到本機');
+    }
+    function load() {
+      try {
+        const raw = localStorage.getItem(KEY);
+        if (!raw) { alert('尚無儲存的紀錄'); return; }
+        const data = JSON.parse(raw);
+        ['account1','account2','account3','account4','account5'].forEach(k => {
+          const el = document.getElementById(k);
+          if (el && data[k]) el.value = data[k];
+        });
+        alert('已載入');
+      } catch (e) { alert('載入失敗'); }
+    }
+    load();
+  </script>
+</body>
+</html>
