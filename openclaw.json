@@ -10,34 +10,10 @@
       "lastRunMode": "local"
     },
     "auth": {
-      "order": {
-        "google": ["google:key1", "google:key2", "google:key3", "google:key4", "google:key5"]
-      },
       "profiles": {
-        "google:key1": {
+        "google:default": {
           "provider": "google",
-          "mode": "api_key",
-          "keyRef": { "source": "env", "provider": "default", "id": "GEMINI_API_KEY_1" }
-        },
-        "google:key2": {
-          "provider": "google",
-          "mode": "api_key",
-          "keyRef": { "source": "env", "provider": "default", "id": "GEMINI_API_KEY_2" }
-        },
-        "google:key3": {
-          "provider": "google",
-          "mode": "api_key",
-          "keyRef": { "source": "env", "provider": "default", "id": "GEMINI_API_KEY_3" }
-        },
-        "google:key4": {
-          "provider": "google",
-          "mode": "api_key",
-          "keyRef": { "source": "env", "provider": "default", "id": "GEMINI_API_KEY_4" }
-        },
-        "google:key5": {
-          "provider": "google",
-          "mode": "api_key",
-          "keyRef": { "source": "env", "provider": "default", "id": "GEMINI_API_KEY_5" }
+          "mode": "api_key"
         }
       }
     },
