@@ -2,3 +2,7 @@
 .openclaw/
 openclaw-full-backup.tar.gz
 *.tar.gz
+
+# 本機建置的 auth-profiles（內含 API key），勿 commit
+.openclaw-auth-build/
+auth-profiles.json

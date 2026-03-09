@@ -8,6 +8,7 @@ RUN mkdir -p /opt/openclaw-seed && chown -R 1000:1000 /opt/openclaw-seed
 RUN npm install -g @insforge/cli
 COPY --chown=1000:1000 openclaw.json /opt/openclaw-seed/openclaw.json
 COPY --chown=1000:1000 workspace-seed /opt/openclaw-seed/workspace-seed
+COPY --chown=1000:1000 build-auth-profiles.sh /opt/openclaw-seed/build-auth-profiles.sh
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 USER 1000

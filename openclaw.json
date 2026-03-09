@@ -10,6 +10,9 @@
       "lastRunMode": "local"
     },
     "auth": {
+      "order": {
+        "google": ["google:key1", "google:key2", "google:key3", "google:key4", "google:key5"]
+      },
       "profiles": {
         "google:default": {
           "provider": "google",
