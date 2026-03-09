@@ -1,5 +1,5 @@
 # 使用 Zeabur 模板同版本的 OpenClaw 映像，僅覆蓋設定檔
-FROM ghcr.io/openclaw/openclaw:2026.3.2
+FROM ghcr.io/openclaw/openclaw:2026.3.7
 
 # base 映像可能以 non-root 執行，先用 root 建立目錄並設權限
 USER root
